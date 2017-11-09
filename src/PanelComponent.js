@@ -4,9 +4,6 @@ export default class EchoComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isVisible: false };
-  }
-
-  componentDidMount() {
     this.props.eventbus.on("MENU_CLICK_EVT", menuItemName => {
       if (menuItemName === this.props.from) {
         this.setState({ isVisible: true });

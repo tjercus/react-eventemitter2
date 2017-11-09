@@ -6,9 +6,7 @@ export default class EchoComponent extends React.Component {
     this.state = {
       messages: [],
     };
-  }
 
-  componentDidMount() {
     this.props.eventbus.onAny(obj => {
       let messagesClone = this.state.messages.slice(0);
       messagesClone.push(obj);

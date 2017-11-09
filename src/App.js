@@ -9,15 +9,18 @@ import PanelComponent from "./PanelComponent";
 class App extends Component {
 
   constructor(props) {
+    console.log("1. constructor");
     super(props);
     this.eventbus = new EventEmitter({wildcard: true});
   }
 
   componentDidMount() {
+    console.log("3. componentDidMount");
     this.eventbus.emit("ECHO_CMD", "echoing works!");
   }
 
   render() {
+    console.log("2. render");
     return (
       <div>
         <header>
