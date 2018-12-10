@@ -1,9 +1,11 @@
 import React from "react";
 
-export default class EchoComponent extends React.Component {
+export default class PanelComponent extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = { isVisible: false };
+
     this.props.eventbus.on("MENU_CLICK_EVT", menuItemName => {
       if (menuItemName === this.props.from) {
         this.setState({ isVisible: true });
