@@ -1,30 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-export default class EchoComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: [],
-    };
+const EchoComponent = ({ eventbus }) => {
+  const [messages, setMessages] = useState( [] );
 
-    this.props.eventbus.onAny(obj => {
-      let messagesClone = this.state.messages.slice(0);
+  useEffect(() => {
+    const handleEvent = obj => {
+      let messagesClone = messages.slice(0);
       messagesClone.push(obj);
-      this.setState({ messages: messagesClone });
-    });
-  }
+      setMessages( messagesClone);
+    };
+    eventbus.onAny(handleEvent);
+    return () => {
+      console.log("EchoComponent.useEffect() unmounting...");
+    };
+  });
 
-  render() {
-    return (
-      <section className="panel">
-        <div className="panel-body">
-          <ul>
-            {this.state.messages.map(function(obj, i) {
-              return <li key={i}>{obj}</li>;
-            })}
-          </ul>
-        </div>
-      </section>
-    );
-  }
-}
+  return (
+    <section className="panel">
+      <div className="panel-body">
+        <ul>
+          {messages.map((obj, i) => {
+            return <li key={i}>{obj}</li>;
+          })}
+        </ul>
+      </div>
+    </section>
+  );
+};
+
+export default EchoComponent;

@@ -1,17 +1,30 @@
 {
   "name": "react-eventemitter2",
-  "version": "0.1.1",
+  "version": "1.0.1",
   "private": true,
   "dependencies": {
     "eventemitter4": "^0.2.4",
-    "react": "^16.6.1",
-    "react-dom": "^16.6.1",
-    "react-scripts": "2.1.1"
+    "prettier": "^1.17.0",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
+    "react-scripts": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
