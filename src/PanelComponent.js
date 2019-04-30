@@ -1,31 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default class PanelComponent extends React.Component {
-  constructor(props) {
-    super(props);
+const PanelComponent = ({ eventbus, from, name }) => {
+  const [visible, setVisible] = useState({ visible: false });
 
-    this.state = { isVisible: false };
-
-    this.props.eventbus.on("MENU_CLICK_EVT", menuItemName => {
-      if (menuItemName === this.props.from) {
-        this.setState({ isVisible: true });
+  useEffect(() => {
+    const handleEvent = menuItemName => {
+      if (menuItemName === from) {
+        setVisible(true);
       } else {
-        this.setState({ isVisible: false });
+        setVisible(false);
       }
-    });
-  }
+    };
+    eventbus.on("MENU_CLICK_EVT", handleEvent);
+    return () => {
+      eventbus.removeListener("MENU_CLICK_EVT", handleEvent);
+    };
+  });
 
-  render() {
-    let panelClassName = this.state.isVisible ? "panel visible" : "panel hidden";
-    return (
-      <section className={panelClassName}>
-        <header className="panel-header">
-          {this.props.name}
-        </header>
-        <div className="panel-body">
-          {"This panel listens to menu item: " + this.props.from}
-        </div>
-      </section>
-    );
-  }
-}
+  let panelClassName = visible ? "panel visible" : "panel hidden";
+  return (
+    <section className={panelClassName}>
+      <header className="panel-header">{name}</header>
+      <div className="panel-body">
+        {"This panel listens to menu item: " + from}
+      </div>
+    </section>
+  );
+};
+
+export default PanelComponent;
